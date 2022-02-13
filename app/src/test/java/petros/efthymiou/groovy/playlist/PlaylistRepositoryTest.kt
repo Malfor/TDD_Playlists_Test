@@ -44,7 +44,7 @@ class PlaylistRepositoryTest : BaseUnitTest() {
     private suspend fun mockFailureCase(): PlaylistRepository {
         whenever(service.fetchPlaylists()).thenReturn(
             flow {
-                emit(Result.failure<List<Playlist>>(exception))
+                emit(Result.failure(exception))
             }
         )
 

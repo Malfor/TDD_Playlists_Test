@@ -50,7 +50,7 @@ class PlaylistViewModelTest : BaseUnitTest() {
     fun emitErrorWhenReceiveError() {
         runBlocking {
             whenever(repository.getPlaylists()).thenReturn(flow {
-                emit(Result.failure<List<Playlist>>(exception))
+                emit(Result.failure(exception))
             })
         }
 

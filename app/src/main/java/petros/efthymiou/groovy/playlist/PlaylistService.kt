@@ -1,10 +1,11 @@
 package petros.efthymiou.groovy.playlist
 
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 
-class PlaylistService(
+class PlaylistService @Inject constructor(
     private val api: PlaylistApi
 ) {
 
