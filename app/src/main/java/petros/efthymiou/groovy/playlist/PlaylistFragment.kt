@@ -7,15 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import okhttp3.OkHttpClient
 import petros.efthymiou.groovy.R
 import petros.efthymiou.groovy.databinding.FragmentItemListBinding
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class PlaylistFragment : Fragment() {
 
     private lateinit var viewModel: PlaylistViewModel
     private lateinit var viewModelFactory: PlaylistViewModelFactory
 
-    private val service = PlaylistService(object : PlaylistApi{})
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("https://62058486161670001741bc0e.mockapi.io/android-tdd/")
+        .client(OkHttpClient())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    private val api = retrofit.create(PlaylistApi::class.java)
+    private val service = PlaylistService(api)
     private val repository = PlaylistRepository(service)
 
     private lateinit var binding: FragmentItemListBinding

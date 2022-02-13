@@ -36,6 +36,8 @@ class PlayListFeature {
 
     @Test
     fun displayListOfPlaylists() {
+        Thread.sleep(4000)
+
         assertRecyclerViewItemCount(R.id.playlists_list, 10)
 
         onView(allOf(withId(R.id.playlist_name), isDescendantOfA(nthChildOf(withId(R.id.playlists_list), 0))))
