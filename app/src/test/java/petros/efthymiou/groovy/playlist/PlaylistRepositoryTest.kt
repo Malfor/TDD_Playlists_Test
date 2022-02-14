@@ -20,7 +20,7 @@ class PlaylistRepositoryTest : BaseUnitTest() {
 
     @Test
     fun getsPlaylistsFromService() = runBlockingTest {
-        val repository = PlaylistRepository(service)
+        val repository = mockSuccessfulCase()
 
         repository.getPlaylists()
 
@@ -44,7 +44,7 @@ class PlaylistRepositoryTest : BaseUnitTest() {
     private suspend fun mockFailureCase(): PlaylistRepository {
         whenever(service.fetchPlaylists()).thenReturn(
             flow {
-                emit(Result.failure(exception))
+                emit(Result.failure<List<Playlist>>(exception))
             }
         )
 

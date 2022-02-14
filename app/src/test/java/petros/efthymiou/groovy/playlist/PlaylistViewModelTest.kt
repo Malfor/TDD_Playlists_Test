@@ -15,6 +15,7 @@ import org.junit.Test
 import org.junit.Rule
 import petros.efthymiou.groovy.utils.BaseUnitTest
 import petros.efthymiou.groovy.utils.MainCoroutineScopeRule
+import petros.efthymiou.groovy.utils.captureValues
 import petros.efthymiou.groovy.utils.getValueForTest
 
 class PlaylistViewModelTest : BaseUnitTest() {
@@ -48,21 +49,58 @@ class PlaylistViewModelTest : BaseUnitTest() {
 
     @Test
     fun emitErrorWhenReceiveError() {
-        runBlocking {
-            whenever(repository.getPlaylists()).thenReturn(flow {
-                emit(Result.failure(exception))
-            })
-        }
-
-        val viewModel = PlaylistViewModel(repository)
+        val viewModel = mockFailureCase()
 
         assertEquals(exception, viewModel.playlists.getValueForTest()?.exceptionOrNull())
+    }
+
+    @Test
+    fun showSpinnerWhileLoading() = runBlockingTest {
+        val viewModel = mockSuccessfulCase()
+
+        viewModel.loader.captureValues {
+            viewModel.playlists.getValueForTest()
+
+            assertEquals(true, values[0])
+        }
+    }
+
+    @Test
+    fun closeLoaderAfterPlaylistsLoad() = runBlockingTest {
+        val viewModel = mockSuccessfulCase()
+
+        viewModel.loader.captureValues {
+            viewModel.playlists.getValueForTest()
+
+            assertEquals(false, values.last())
+        }
+    }
+
+    @Test
+    fun closeLoaderAfterError() = runBlockingTest {
+        val viewModel = mockFailureCase()
+
+        viewModel.loader.captureValues {
+            viewModel.playlists.getValueForTest()
+
+            assertEquals(false, values.last())
+        }
     }
 
     private fun mockSuccessfulCase(): PlaylistViewModel {
         runBlockingTest {
             whenever(repository.getPlaylists()).thenReturn(flow {
                 emit(expected)
+            })
+        }
+
+        return PlaylistViewModel(repository)
+    }
+
+    private fun mockFailureCase(): PlaylistViewModel {
+        runBlocking {
+            whenever(repository.getPlaylists()).thenReturn(flow {
+                emit(Result.failure<List<Playlist>>(exception))
             })
         }
 

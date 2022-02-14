@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +25,13 @@ class PlaylistFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentItemListBinding.bind(inflater.inflate(R.layout.fragment_item_list, container, false))
+
+        viewModel.loader.observe(viewLifecycleOwner, { loading ->
+            when(loading) {
+                true -> binding.loader.isVisible = true
+                false -> binding.loader.isGone = true
+            }
+        })
 
         viewModel.playlists.observe(viewLifecycleOwner, { playlist ->
             if (playlist.getOrNull() != null) {
