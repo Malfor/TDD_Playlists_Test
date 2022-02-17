@@ -11,7 +11,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import petros.efthymiou.groovy.utils.BaseUnitTest
 
-class PlaylistDetailsServiceTest : BaseUnitTest() {
+class PlaylistResponseDetailsServiceTest : BaseUnitTest() {
 
     private lateinit var service: PlaylistDetailsService
     private val id = "100"

@@ -10,11 +10,11 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 import petros.efthymiou.groovy.utils.BaseUnitTest
 
-class PlaylistServiceTest : BaseUnitTest() {
+class PlaylistResponseServiceTest : BaseUnitTest() {
 
     private lateinit var service: PlaylistService
     private val api: PlaylistApi = mock()
-    private val playlists: List<Playlist> = mock()
+    private val playlistResponses: List<PlaylistResponse> = mock()
 
     @Test
     fun fetchPlaylistFromApi() = runBlockingTest {
@@ -29,7 +29,7 @@ class PlaylistServiceTest : BaseUnitTest() {
     fun convertValuesToFlowResultAndEmitsThem() = runBlockingTest {
         mockSuccessfulCase()
 
-        assertEquals(Result.success(playlists), service.fetchPlaylists().first())
+        assertEquals(Result.success(playlistResponses), service.fetchPlaylists().first())
     }
 
     @Test
@@ -46,7 +46,7 @@ class PlaylistServiceTest : BaseUnitTest() {
     }
 
     private suspend fun mockSuccessfulCase() {
-        whenever(api.fetchAllPlaylists()).thenReturn(playlists)
+        whenever(api.fetchAllPlaylists()).thenReturn(playlistResponses)
 
         service = PlaylistService(api)
     }

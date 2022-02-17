@@ -15,10 +15,10 @@ import petros.efthymiou.groovy.utils.BaseUnitTest
 import petros.efthymiou.groovy.utils.captureValues
 import petros.efthymiou.groovy.utils.getValueForTest
 
-class PlaylistViewModelTest : BaseUnitTest() {
+class PlaylistResponseViewModelTest : BaseUnitTest() {
 
     private val repository: PlaylistRepository = mock()
-    private val playlists = mock<List<Playlist>>()
+    private val playlists = mock<List<PlaylistResponse>>()
     private val expected = Result.success(playlists)
     private val exception = RuntimeException("Something went wrong")
 
@@ -91,7 +91,7 @@ class PlaylistViewModelTest : BaseUnitTest() {
     private fun mockFailureCase(): PlaylistViewModel {
         runBlocking {
             whenever(repository.getPlaylists()).thenReturn(flow {
-                emit(Result.failure<List<Playlist>>(exception))
+                emit(Result.failure<List<PlaylistResponse>>(exception))
             })
         }
 

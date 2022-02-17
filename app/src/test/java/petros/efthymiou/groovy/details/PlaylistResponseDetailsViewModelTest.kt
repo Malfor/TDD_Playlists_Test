@@ -13,7 +13,7 @@ import petros.efthymiou.groovy.utils.BaseUnitTest
 import petros.efthymiou.groovy.utils.captureValues
 import petros.efthymiou.groovy.utils.getValueForTest
 
-class PlaylistDetailsViewModelTest : BaseUnitTest() {
+class PlaylistResponseDetailsViewModelTest : BaseUnitTest() {
 
     private lateinit var viewModel: PlaylistDetailsViewModel
     private val id = "1"

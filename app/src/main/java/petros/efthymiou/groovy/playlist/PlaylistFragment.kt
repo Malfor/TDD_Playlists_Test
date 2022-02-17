@@ -33,26 +33,26 @@ class PlaylistFragment : Fragment() {
     }
 
     private fun observeLiveData() {
-        viewModel.loader.observe(viewLifecycleOwner, { loading ->
+        viewModel.loader.observe(viewLifecycleOwner) { loading ->
             when (loading) {
                 true -> binding.loader.isVisible = true
                 false -> binding.loader.isGone = true
             }
-        })
+        }
 
-        viewModel.playlists.observe(viewLifecycleOwner, { playlist ->
+        viewModel.playlists.observe(viewLifecycleOwner) { playlist ->
             if (playlist.getOrNull() != null) {
                 playlist.getOrNull()?.let { setupList(it) }
             } else {
                 // TODO
             }
-        })
+        }
     }
 
-    private fun setupList(playlist: List<Playlist>) {
+    private fun setupList(playlistResponse: List<Playlist>) {
         with(binding.playlistsList) {
             layoutManager = LinearLayoutManager(context)
-            adapter = MyPlaylistRecyclerViewAdapter(playlist) { id ->
+            adapter = MyPlaylistRecyclerViewAdapter(playlistResponse) { id ->
                 val action = PlaylistFragmentDirections.actionPlaylistFragmentToPlaylistDetailFragment(id)
                 findNavController().navigate(action)
             }

@@ -11,7 +11,7 @@ class PlaylistService @Inject constructor(
 
     suspend fun fetchPlaylists() : Flow<Result<List<Playlist>>> {
         return flow {
-            emit(Result.success(api.fetchAllPlaylists()))
+            emit(Result.success(api.fetchAllPlaylists().mapToDomain()))
         }.catch {
             emit(Result.failure(RuntimeException("Something went wrong")))
         }
