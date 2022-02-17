@@ -24,11 +24,7 @@ class MyPlaylistRecyclerViewAdapter(
         val item = values[position]
         holder.playlistName.text = item.name
         holder.playlistCategory.text = item.category
-        var image = R.mipmap.playlist
-        if (item.category == "Rap"){
-            image = R.mipmap.rock
-        }
-        holder.playlistImage.setImageResource(image)
+        holder.playlistImage.setImageResource(item.image)
         holder.root.setOnClickListener { listener(item.id) }
     }
 
