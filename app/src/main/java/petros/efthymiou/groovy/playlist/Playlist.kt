@@ -6,3 +6,4 @@ data class Playlist(
     val category: String,
     val image: Int
 )
+

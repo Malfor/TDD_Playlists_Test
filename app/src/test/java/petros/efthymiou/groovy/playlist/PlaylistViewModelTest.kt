@@ -1,6 +1,5 @@
 package petros.efthymiou.groovy.playlist
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
@@ -12,19 +11,11 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-import org.junit.Rule
 import petros.efthymiou.groovy.utils.BaseUnitTest
-import petros.efthymiou.groovy.utils.MainCoroutineScopeRule
 import petros.efthymiou.groovy.utils.captureValues
 import petros.efthymiou.groovy.utils.getValueForTest
 
 class PlaylistViewModelTest : BaseUnitTest() {
-
-    @get:Rule
-    var coroutinesTestRule = MainCoroutineScopeRule()
-
-    @get:Rule
-    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val repository: PlaylistRepository = mock()
     private val playlists = mock<List<Playlist>>()

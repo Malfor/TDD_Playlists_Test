@@ -27,8 +27,14 @@ class PlaylistFragment : Fragment() {
     ): View {
         binding = FragmentItemListBinding.bind(inflater.inflate(R.layout.fragment_item_list, container, false))
 
+        observeLiveData()
+
+        return binding.root
+    }
+
+    private fun observeLiveData() {
         viewModel.loader.observe(viewLifecycleOwner, { loading ->
-            when(loading) {
+            when (loading) {
                 true -> binding.loader.isVisible = true
                 false -> binding.loader.isGone = true
             }
@@ -41,8 +47,6 @@ class PlaylistFragment : Fragment() {
                 // TODO
             }
         })
-
-        return binding.root
     }
 
     private fun setupList(playlist: List<Playlist>) {

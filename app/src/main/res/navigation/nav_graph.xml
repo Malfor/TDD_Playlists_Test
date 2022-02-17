@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/playlistDetailFragment"
-        android:name="petros.efthymiou.groovy.PlaylistDetailFragment"
+        android:name="petros.efthymiou.groovy.details.PlaylistDetailsFragment"
         android:label="fragment_playlist_detail"
         tools:layout="@layout/fragment_playlist_detail">
 
